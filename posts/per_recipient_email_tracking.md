@@ -52,7 +52,7 @@ To generate our tracking pixels we encode both the Email.id and email address fo
 for recipient in email_to + email_cc + email_bcc:
     pixel_url = "/email_opened/%s/tracking.png" 
                     % base64.b64encode(json.dumps({'email_id': 'emai_123ABC', 
-                                                    'email_address': recipient'}))
+                                                    'email_address': recipient}))
 ```
 
 Every time a tracking image URL is requested from an email client, our app responds with the [smallest transparent 1x1 PNG](http://garethrees.org/2007/11/14/pngcrush/) representation and asynchronously creates an EmailOpen(datetime_opened, email_id, email_address) event in our database.

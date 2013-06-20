@@ -5,7 +5,7 @@ import shutil
 import markdown
 from jinja2 import Environment, FileSystemLoader
 
-OUTPUT_DIR = '.generated'
+OUTPUT_DIR = '../public_html'
 POSTS_DIR = 'posts'
 POST_OUTPUT_DIR = os.path.join(OUTPUT_DIR, POSTS_DIR)
 
@@ -68,7 +68,7 @@ def generate():
         with codecs.open(output_filepath, "w", encoding="utf-8") as output_file:
             output_file.write(html)
 
-        generated_posts.append({'date': context['date'], 'title': context['title'], 'url': '%s/%s.html' % (POSTS_DIR, os.path.splitext(post)[0])})
+        generated_posts.append({'date': context['date'], 'title': context['title'], 'url': '%s/%s' % (POSTS_DIR, os.path.splitext(post)[0])})
 
     generated_posts.sort(key=lambda x: x['date'])
     print "\n\n========================================="
