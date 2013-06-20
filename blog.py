@@ -13,6 +13,10 @@ def generate():
     # remove previously generated content directory
     shutil.rmtree(OUTPUT_DIR, ignore_errors=True)
 
+    # create our new directory structure
+    if not os.path.exists(POST_OUTPUT_DIR):
+        os.makedirs(POST_OUTPUT_DIR)
+
     jinja_env = Environment(loader=FileSystemLoader('templates'))
 
     posts = os.listdir(POSTS_DIR) 
@@ -22,7 +26,6 @@ def generate():
 
     for post in posts:
         filepath = os.path.join(POSTS_DIR, post)
-        date_created = int(os.path.getctime(filepath)) #really last modified on *nux
 
         with codecs.open(filepath, mode="r", encoding="utf-8") as input_file:
             text = input_file.read()
@@ -31,7 +34,8 @@ def generate():
             m = re.match(r'^\s*(?:---(.*?)---)?\s*(.*)$', text, flags=re.DOTALL)
             fm = {}
             if m.groups()[0]:
-                fm = dict([v.strip() for v in line.split(':', 1)] for line in m.groups()[0].splitlines() if line)
+                # todo fugly
+                fm = dict([line.split(':', 1)[0].strip().lower(), line.split(':', 1)[1].strip()] for line in m.groups()[0].splitlines() if line)
             return fm, m.groups()[1].strip()
 
         context, md_text = _parse(text)
@@ -39,26 +43,37 @@ def generate():
         if not context.get('title'):
             context['title'] = md_text.split('\n', 1)[0]
 
-        if not context.get('published', True) or not context.get('title'):
+        # create a datetime from our date string
+        if context.get('date'):
+            import dateutil.parser as parser
+            context['date'] = parser.parse(context['date'])
+        
+        if not context.get('published') in ['true', 'True', 'yes', 'Yes']:
+            print "%s is a draft." % post
+            continue
+        if not context.get('title'):
+            print "%s has no title." % post
+            continue
+        if not context.get('date'):
+            print "%s has no publish date." % post
             continue
 
-        md_html = markdown.markdown(md_text)
+        md_html = markdown.markdown(md_text, extensions=['fenced_code', 'codehilite'])
         context['post'] = md_html
         html = post_template.render(context) 
 
         # remove any previous file extension (ie, post.md)
         output_filepath = os.path.join(POST_OUTPUT_DIR, "%s.html" % os.path.splitext(post)[0])
 
-        if not os.path.exists(POST_OUTPUT_DIR):
-            os.makedirs(POST_OUTPUT_DIR)
-
         with codecs.open(output_filepath, "w", encoding="utf-8") as output_file:
             output_file.write(html)
 
-        generated_posts.append({'date_created': date_created, 'title': context['title'], 'url': '%s/%s.html' % (POSTS_DIR, os.path.splitext(post)[0])})
+        generated_posts.append({'date': context['date'], 'title': context['title'], 'url': '%s/%s.html' % (POSTS_DIR, os.path.splitext(post)[0])})
 
-    generated_posts.sort(key=lambda x: x['date_created'])
-    print generated_posts
+    generated_posts.sort(key=lambda x: x['date'])
+    print "\n\n========================================="
+    print "Generated %d posts." % len(generated_posts)
+    print "=========================================\n\n"
 
     index_template = jinja_env.get_template('index.html')
     html = index_template.render({'posts': generated_posts}) 
