@@ -70,7 +70,7 @@ def generate():
 
         generated_posts.append({'date': context['date'], 'title': context['title'], 'url': '%s/%s' % (POSTS_DIR, os.path.splitext(post)[0])})
 
-    generated_posts.sort(key=lambda x: x['date'])
+    generated_posts.sort(key=lambda x: x['date'], reverse=True)
     print "\n\n========================================="
     print "Generated %d posts." % len(generated_posts)
     print "=========================================\n\n"
