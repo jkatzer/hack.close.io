@@ -60,9 +60,9 @@ Every time a tracking image URL is requested from an email client, our app respo
 
 Remove any messages stored by the SMTP server
 ---------------------------------------------
-Google's SMTP servers store a copy of every message sent in your Sent Messages directory. Since we've created unique messages for each recipient, we need to delete all of these messages since we don't want our senders to accidentally trigger events by opening sent messages or be confused by multiple copies of the same message appearing in their sent folder.
+Google's SMTP servers copy every message sent through their servers into in your Sent Messages directory. Since we've created unique messages for each recipient, we need to delete all of these messages since we don't want our senders to accidentally trigger events by opening sent messages or be confused by multiple copies of the same message appearing in their sent folder.
 
-To find these messages we perform the following search within each of our potential sent message IMAP folders.
+To find these messages we perform the following search within each of our potential sent message folders via IMAP.
 
 ```python
 # IMAPClient http://imapclient.readthedocs.org
@@ -92,11 +92,11 @@ if uids:
 
 ```
 
-Store sent mail in IMAP
+Store sent mail using IMAP
 -----------------------
 When sending email through services like *MailChimp*, *ConstantContact*, or *ToutApp*, you may have been frustrated since sent mail isn't stored in your email account's Sent mail folder -- I know I was. So we made sure your mailbox stays up to date no matter if you're sending emails within Close.io or not.
 
-If using a service like Gmail which stores all sent messages automatically in IMAP, we additionally ensure the headers are consistent so scenarios where the FROM header contains ```"anthony@close.io"``` instead of ```"Anthony Nemitz <anthony@close.io>"``` don't occur. This is just another way we try and make your email sending experience as consistent as possible.
+If using a service like Gmail which stores all sent messages automatically, we additionally ensure the headers are consistent so scenarios where the FROM header contains ```"anthony@close.io"``` instead of ```"Anthony Nemitz <anthony@close.io>"``` don't occur. This is just another way we try and make your email sending experience as consistent as possible.
 
 So, to grab the original headers from one of our sent messages we use the FETCH command. Note that this operation should be preformed before the messages are deleted (previous section).
 
