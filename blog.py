@@ -6,6 +6,7 @@ import markdown
 from jinja2 import Environment, FileSystemLoader
 
 OUTPUT_DIR = '../public_html'
+STATIC_DIR = 'static'
 POSTS_DIR = 'posts'
 POST_OUTPUT_DIR = os.path.join(OUTPUT_DIR, POSTS_DIR)
 
@@ -81,6 +82,7 @@ def generate():
     with codecs.open(os.path.join(OUTPUT_DIR, 'index.html'), "w", encoding="utf-8") as output_file:
         output_file.write(html)
 
+    shutil.copytree(STATIC_DIR, os.path.join(OUTPUT_DIR, STATIC_DIR))
 
 if __name__ == "__main__":
     generate()

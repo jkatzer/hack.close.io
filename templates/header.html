@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=700px" />
         <title>Close.io Engineering{% if title %} -- {{title}}{% endif %}</title>
         <style>
-            body { font-family: helvetica; color: #222; }
-            h1 { font-size: 2em; }
-            h2 { font-size: 1.5em; }
-            h3 { font-size: 1.17em; }
-            h5 { font-size: .83em; }
-            h6 { font-size: .75em; }
+            body { font-family: helvetica,sans-serif; color: #222; line-height: 1.3em; margin:1em; }
+            h1 { font-size: 2em; line-height: 1.2em; }
+            h2 { font-size: 1.5em; line-height: 1.2em; }
+            h3 { font-size: 1.17em; line-height: 1.2em; }
+            h5 { font-size: .83em; line-height: 1.2em; }
+            h6 { font-size: .75em;  line-height: 1.2em; }
             .container { height: 100%; width: 100%; }
-            ul { list-style-type: none; }
+            ul { list-style-type: square; }
             li { margin-bottom: .5em; }
-            a { text-decoration: none; color: inherit; }
+            a { text-decoration: none; color: #47c; }
             a:hover { text-decoration: underline; }
             .top-nav { font-size: large; }
-            .content { font-size: medium; width: 640px; }
+            .content { font-size: medium; width: 680px; }
+            .content img { max-width: 680px; }
             .posts time { margin-left: 1em; font-size: small; }
-            .posts a { font-weight: bold; }
+            .posts a { font-weight: bold; font-size:1em; }
             footer { font-size: small; color: #999; text-align: right; }
+            .codehilite { border: 1px solid #ddd; background-color: #f9f9f9; border-radius: 3px; padding: 0 12px; overflow: auto; }
+            code { border: 1px solid #ddd; background-color: #f9f9f9; border-radius: 3px; padding: 1px 3px; overflow: auto; }
+            ul.posts a { color: inherit; }
+            ul.posts { list-style-type: none; }
+            .top-nav { font-size: 1.5em; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif; }
+            .top-nav a { color: inherit; }
+            article { margin-bottom: 2em; }
+            table { border: 1px solid #ddd; border-spacing: 0; border-radius: 3px; }
+            table tr > td, table th { border-left: 1px solid #ddd; border-top: 1px solid #ddd; padding: 2px 4px; }
+            table tr:nth-child(odd) > td, table tr:nth-child(odd) > th { background-color: #f9f9f9; }
+            table tr > td:first-child, table tr > th:first-child { border-left: 0; }
+            table tr:first-child td, table tr:first-child th { border-top: 0; }
 
             /* Pygments Styles */
             .hll { background-color: #ffffcc }
@@ -87,7 +101,7 @@
     <body>
         <div class="container">
             <div class="top-nav">
-                <a href="/">Close.io Engineering</a>
+                <a href="http://close.io">Close.io</a> &raquo; <a href="/">Engineering</a>
             </div>
             <div class="content">
 

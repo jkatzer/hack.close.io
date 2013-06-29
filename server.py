@@ -7,6 +7,10 @@ PORT = 8080
 HOSTNAME = "localhost"
 
 class BlogHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    def guess_type(self, path):
+        if path.endswith('.html'):
+            return 'text/html; charset=utf-8'
+
     def translate_path(self, path):
         name, ext = os.path.splitext(path)
         if name.startswith('/posts/') and not ext:
