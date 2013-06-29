@@ -84,5 +84,8 @@ def generate():
 
     shutil.copytree(STATIC_DIR, os.path.join(OUTPUT_DIR, STATIC_DIR))
 
+    with codecs.open(os.path.join(OUTPUT_DIR, '.htaccess'), "w", encoding="utf-8") as output_file:
+        output_file.write('AddDefaultCharset utf-8\n')
+
 if __name__ == "__main__":
     generate()
