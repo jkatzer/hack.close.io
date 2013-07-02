@@ -340,4 +340,9 @@ Sample run on a 2.7 GHz Intel Core i5 running OS X 10.8.3
 
 See [tests/benchmark.py](https://github.com/elasticsales/mongomallard/blob/master/tests/benchmark.py) for source code.
 
+What next?
+----------
+
+We realize that maintaining multiple forks is a bad idea, therefore our goal is to bring as many changes as possible upstream. We're working together with MongoEngine's maintainer so that a lot of our improvements will hopefully land in MongoEngine 0.9.
+
 -Thomas Steinacher
