@@ -345,4 +345,9 @@ What next?
 
 We realize that maintaining multiple forks is a bad idea, therefore our goal is to bring as many changes as possible upstream. We're working together with MongoEngine's maintainer so that a lot of our improvements will hopefully land in MongoEngine 0.9.
 
+
+Comments
+--------
+See Hacker News for comments: [https://news.ycombinator.com/item?id=5979150](https://news.ycombinator.com/item?id=5979150)
+
 -Thomas Steinacher
